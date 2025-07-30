@@ -134,8 +134,9 @@ Inherits User's attributes and methods
     - donate: donate to a shelter
 
 ## Shelter (User)
-Inherits User's attributes and methods
-Organizations that rescue pets and facilitate adoptions
+Inherits User's attributes and methods.
+
+Organizations that rescue pets and facilitate adoptions.
 
 - has:
     - received_donations (list[Donation])
