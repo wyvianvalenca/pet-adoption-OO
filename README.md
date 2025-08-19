@@ -85,8 +85,10 @@ An Adopter's application to adopt a pet
     - applicant (Adopter)
     - pet (Pet)
     - form (list[Question])
+    - answers (list[Answer])
     - status (str)
-    - score (str): calculate the compatibility between the applicant's answers and the expected answers
+    - score (str)
+        - calculates the compatibility between the applicant's answers and the expected answers
     - feedback (str)
 
 - can:
@@ -100,7 +102,8 @@ Shelter organized events (fundraisers, pet fairs, etc.)
 - has:
     - location (Address)
     - date (Date)
-    - status (str): indicates if event has happened, has been cancelled or is in stand-by or in planning
+    - status (str)
+        - indicates if event has happened, has been cancelled or is in stand-by or in planning
 
 - can:
     - update: change any info
@@ -132,6 +135,7 @@ Inherits User's attributes and methods
 
 - can:
     - donate: donate to a shelter
+    - apply: fill out form to adopt pet
 
 ## Shelter (User)
 Inherits User's attributes and methods.
@@ -170,8 +174,10 @@ Rescued animals
     - breed (str)
     - fur_color (str)
     - applications (list[Applications])
-    - status (str): rescued, in_treatment, available_for_adoption, adopted
-    - application_template (list[Question]): questions for application form
+    - status (str)
+        - rescued, in_treatment, available_for_adoption, adopted
+    - application_template (list[Question])
+        - questions for application form
     - tutor (Adopter)
 
 - can:
@@ -197,6 +203,7 @@ A class for searching and filtering objects (pets, events, shelters, posts)
 A social post
 
 - has:
+    - author (User)
     - post_type (str)
     - title (str)
     - content (str)
