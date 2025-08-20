@@ -15,8 +15,3 @@ class Address:
     def __str__(self) -> str:
         return (f"{self.street}, {self.number}, {self.district} - "
                 + f"{self.city}/{self.state.upper()}")
-
-
-if __name__ == "__main__":
-    a = Address("aaa", "bbbbb", "12", 232131, "maceio", "al")
-    print(a)

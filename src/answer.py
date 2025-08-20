@@ -10,4 +10,4 @@ class Answer:
 
     @override
     def __str__(self) -> str:
-        return f"> {self.question.name}\n" + f"    R: {self.user_option}"
+        return f"> {self.question.name} | R: {self.user_option}"
