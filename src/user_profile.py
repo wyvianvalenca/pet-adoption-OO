@@ -7,18 +7,28 @@ from .address import Address
 class Profile:
     def __init__(self, name: str, birth: date, address: Address,
                  description: str):
-        self.name: str = name
-        self.birth: date = birth
-        self.address: Address = address
-        self.description: str = description
+        self.__name: str = name
+        self.__birth: date = birth
+        self.__address: Address = address
+        self.__description: str = description
+
+    @property
+    def name(self) -> str:
+        return self.__name.title()
+
+    """TO-DO: add properties and setters with data validation"""
 
     def as_list(self) -> list[str]:
-        profile_info: list[str] = [f"{self.name.upper()}",
-                                   f"    > {self.birth.isoformat()}",
-                                   f"    > {self.address}",
-                                   f"    > {self.description}"]
+        return [self.__name, self.__birth.isoformat(),
+                self.__address.__str__(), self.__description]
+
+    def formatted_list(self) -> list[str]:
+        profile_info: list[str] = [f"{self.__name.upper()}",
+                                   f"    > {self.__birth.isoformat()}",
+                                   f"    > {self.__address}",
+                                   f"    > {self.__description}"]
         return profile_info
 
     @override
     def __str__(self) -> str:
-        return f"{self.name.title()}'s profile"
+        return f"{self.__name.title()}'s profile"
