@@ -40,7 +40,7 @@ Class for storing a structured address
 - can:
     - format: returns a pretty formatted address
 
-## Profile
+## Profile [IN PROGRESS]
 General informations for users and pets
 
 - has:
@@ -110,7 +110,7 @@ Shelter organized events (fundraisers, pet fairs, etc.)
     - cancel: change status to 'cancelled'
     - end: chage status to 'done'
 
-## User
+## User [IN PROGRESS]
 
 - has:
     - username (str)
@@ -118,8 +118,8 @@ Shelter organized events (fundraisers, pet fairs, etc.)
     - allowed_post_types (list[str])
     - posts (list[Post])
 
+> TO-DO: review methods
 - can:
-    - post: create a social post (Success Story, Forum or Educational, based on 'allowed_post_types')
     - list_posts: access all posts by all users
     - list_shelters: view all registered shelters
     - list_events: view all registered events
@@ -199,7 +199,7 @@ A class for searching and filtering objects (pets, events, shelters, posts)
     - search: find one specific object
     - filter: filter all objects based on various criteria
 
-## Post
+## Post [OK]
 A social post
 
 - has:
