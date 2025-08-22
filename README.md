@@ -16,19 +16,82 @@ A system with classes for pets, shelters, and adopters, facilitating pet searche
 
 # Software Project (Classes)
 
-## Date
-A class for storing dates.
+## Event
+Shelter organized events (fundraisers, pet fairs, etc.)
 
 - has:
-    - day (int)
-    - month (int)
-    - year (int)
+    - location (Address)
+    - date (Date)
+    - status (str)
+        - indicates if event has happened, has been cancelled or is in stand-by or in planning
 
 - can:
-    - format: returns a pretty formatted date
-    - age: returns how many years have passed since date
+    - update: change any info
+    - cancel: change status to 'cancelled'
+    - end: chage status to 'done'
 
-## Address
+## Donation [OK]
+A money donation to a shelter
+
+- has:
+    - donor (Adopter)
+    - receiver (Shelter)
+    - ammount (float)
+    - date (Date)
+
+- can:
+    - format: returns the donation's info in a pretty formatted way
+
+---
+
+## Question [OK]
+
+- has:
+    - name (str)
+    - option (list[str])
+    - preferred_answer (str): the best/right answer
+
+- can:
+    - formatted_list: formats the question and options in a list of strings
+
+## Form [OK]
+Template for aplication (list of questions)
+
+- has:
+    - questions (list[question])
+
+- can:
+    - add_question
+    - formatted_list: formats all questions
+
+## Answer [OK]
+
+- has:
+    - question (Question)
+    - user_option (str)
+    - is_preferred (bool)
+
+- can
+    - format: returns the donation's info in a pretty formatted way
+
+## Application [OK]
+An Adopter's application to adopt a pet
+
+- has:
+    - applicant (Adopter)
+    - pet (Pet)
+    - answers (list[Answer])
+    - score (str)
+        - indicates the compatibility between the applicant's answers and the expected answers
+    - status (str)
+    - feedback (str)
+
+- can:
+    - format: returns the questions, answers, score and status in a pretty formatted way
+
+---
+
+## Address [OK]
 Class for storing a structured address
 
 - has:
@@ -53,62 +116,7 @@ General informations for users and pets
     - update_profile: change any attribute
     - format: returns all the profile's info in a pretty formatted way
 
-## Donation
-A money donation to a shelter
-
-- has:
-    - donor (Adopter)
-    - receiver (Shelter)
-    - ammount (float)
-    - date (Date)
-
-- can:
-    - format: returns the donation's info in a pretty formatted way
-
-## Question
-
-- has:
-    - name (str)
-    - option (list[str])
-    - preferred_answer (str): the best/right answer
-    - user_answer (str)
-    - is_preferred (bool): indicates if the given answer is equal to the preferred answer
-
-- can:
-    - answer: choose a option as answer
-    - compute_compatibily: update 'is_preferred'
-
-## Application
-An Adopter's application to adopt a pet
-
-- has:
-    - applicant (Adopter)
-    - pet (Pet)
-    - form (list[Question])
-    - answers (list[Answer])
-    - status (str)
-    - score (str)
-        - calculates the compatibility between the applicant's answers and the expected answers
-    - feedback (str)
-
-- can:
-    - deny: deny the application, provides feedback
-    - approve: approve the application and makes applicant the pet's tutor.
-    - format: returns the questions, answers, score and status in a pretty formatted way
-
-## Event
-Shelter organized events (fundraisers, pet fairs, etc.)
-
-- has:
-    - location (Address)
-    - date (Date)
-    - status (str)
-        - indicates if event has happened, has been cancelled or is in stand-by or in planning
-
-- can:
-    - update: change any info
-    - cancel: change status to 'cancelled'
-    - end: chage status to 'done'
+---
 
 ## User [IN PROGRESS]
 
@@ -118,7 +126,7 @@ Shelter organized events (fundraisers, pet fairs, etc.)
     - allowed_post_types (list[str])
     - posts (list[Post])
 
-> TO-DO: review methods
+<!-- >  TODO: review methods -->
 - can:
     - list_posts: access all posts by all users
     - list_shelters: view all registered shelters
@@ -143,27 +151,17 @@ Inherits User's attributes and methods.
 Organizations that rescue pets and facilitate adoptions.
 
 - has:
-    - received_donations (list[Donation])
+    - allowed_pet_types (list[str])
     - pets (list[Pet])
     - events (list[Event])
-    - allowed_pet_types (list[str])
 
 - can:
-    - CRUD Pet: create, read, update and delete pets
-    - CRUD Event: create, read, update and delete events
-    - CRUD pet_type: create, read, update and delete allowed pet types
-    - list_donations: view all received donations
+    - add_allowed_pet_type: add a new species to shelter's list
+    - is_allowed(pet_type): indicates if Shelter accepts pet_type
+    - [WIP] approve_application: approve an application to adopt a pet, deny and provide feedback for all others and make applicant the pet's tutor
+    - [WIP] deny_application: deny an application and provide feedback
 
-## Accounts
-Class for storing and managing all users
-
-- has:
-    - adopters (dict[str, Adopter])
-    - shelters (dict[str, Shelter])
-
-- can:
-    - create_user: add a new User, return object
-    - login: returns the User object based on the username
+---
 
 ## Pet
 Rescued animals
@@ -173,11 +171,10 @@ Rescued animals
     - pet_type (str)
     - breed (str)
     - fur_color (str)
-    - applications (list[Applications])
     - status (str)
         - rescued, in_treatment, available_for_adoption, adopted
-    - application_template (list[Question])
-        - questions for application form
+    - form (Form)
+        - questions for adoption application form
     - tutor (Adopter)
 
 - can:
@@ -186,18 +183,7 @@ Rescued animals
     - add_template_question: add a question to application_template
     - apply_to_adopt: fill the pet's form to apply for adoption
 
-## Query
-A class for searching and filtering objects (pets, events, shelters, posts)
-
-- has:
-    - options: all available instances
-    - criteria: all available criteria for filtering
-    - filters: user selected filters
-    - result: instances that  fit selected filters
-
-- can:
-    - search: find one specific object
-    - filter: filter all objects based on various criteria
+---
 
 ## Post [OK]
 A social post
@@ -226,3 +212,18 @@ Feed with all registered posts
     - list_posts: show all registered posts
     - create_post: add new post
     - delete_post: remove post from feed
+
+---
+
+## Query
+A class for searching and filtering objects (pets, events, shelters, posts)
+
+- has:
+    - options: all available instances
+    - criteria: all available criteria for filtering
+    - filters: user selected filters
+    - result: instances that  fit selected filters
+
+- can:
+    - search: find one specific object
+    - filter: filter all objects based on various criteria
