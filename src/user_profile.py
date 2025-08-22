@@ -16,7 +16,7 @@ class Profile:
     def name(self) -> str:
         return self.__name.title()
 
-    """TO-DO: add properties and setters with data validation"""
+    # TODO: add properties and setters with data validation
 
     def as_list(self) -> list[str]:
         return [self.__name, self.__birth.isoformat(),
@@ -24,9 +24,9 @@ class Profile:
 
     def formatted_list(self) -> list[str]:
         profile_info: list[str] = [f"{self.__name.upper()}",
-                                   f"    > {self.__birth.isoformat()}",
-                                   f"    > {self.__address}",
-                                   f"    > {self.__description}"]
+                                   f"    > Description: {self.__description}",
+                                   f"    > Idade: {self.__birth.today()}",
+                                   f"    > Addres: {self.__address}"]
         return profile_info
 
     @override
