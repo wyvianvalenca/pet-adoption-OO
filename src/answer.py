@@ -1,13 +1,23 @@
-from typing_extensions import override
 from .question import Question
 
 
 class Answer:
     def __init__(self, question: Question, user_option: str):
-        self.question: Question = question
-        self.user_option: str = user_option
-        self.is_preferred: bool = self.user_option == self.question.preferred_answer
+        if user_option not in question:
+            raise Exception(
+                f"{user_option} is not a valid option for this question")
 
-    @override
+        self.__question: Question = question
+        self.__user_option: str = user_option
+        self.__is_preferred: bool = self.__user_option == self.__question.preferred_answer
+
     def __str__(self) -> str:
-        return f"> {self.question.name} | R: {self.user_option}"
+        if self.__is_preferred:
+            marker = "V"
+        else:
+            marker = "X"
+
+        return f"> {self.__question.name}\n  R: {self.__user_option} [{marker}]"
+
+    def __bool__(self) -> bool:
+        return self.__is_preferred

@@ -1,7 +1,57 @@
-from .question import Question
-from .answer import Answer
+from src.answer import Answer
+from src.form import Form
 
 
 class Application:
-    pass
-    # def __init__(self, applicant: Adopter, pet: Pet, )
+    all: list['Application'] = []
+
+    @classmethod
+    def get_apps_pet(cls, pet: str) -> list['Application']:
+        return [app for app in cls.all if app.__pet == pet]
+
+    @classmethod
+    def get_apps_applicant(cls, applicant: str) -> list['Application']:
+        return [app for app in cls.all if app.__applicant == applicant]
+
+    def __init__(self, applicant: str, pet: str, pet_form: Form, answers: list[str]):
+        if len(answers) != len(pet_form):
+            raise Exception(
+                f"{len(answers)} answers for {len(pet_form)} questions")
+
+        if applicant in [apps.__applicant for apps in Application.get_apps_pet(pet)]:
+            raise Exception(f"{applicant} already applied to adopt {pet}")
+
+        self.__applicant: str = applicant
+        self.__pet: str = pet
+
+        self.__answers: list[Answer] = []
+        self.status: str = "in review"
+        self.feedback: str
+
+        right_answers: int = 0
+        for index, question in enumerate(pet_form):
+            answer = Answer(question, answers[index])
+            self.__answers.append(answer)
+            right_answers += 1 if answer else 0
+
+        self.__score: float = right_answers / len(pet_form)
+
+        self.all.append(self)
+
+    @property
+    def score(self) -> float:
+        return self.__score
+
+    def __str__(self) -> str:
+        return f"@{self.__applicant}'s application to adopt {self.__pet.title()}"
+
+    def formatted_list(self) -> list[str]:
+        application_info: list[str] = [f"{self}", ""]
+
+        for answer in self.__answers:
+            application_info.append(f"{answer}")
+            application_info.append("")
+
+        application_info.append(f"Score: {self.__score * 100:.2f}%")
+
+        return application_info
