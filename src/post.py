@@ -1,22 +1,33 @@
-import textwrap
-
 from src.user import User
+
+import textwrap
 
 
 class Post:
+    all: list['Post'] = []
+
     def __init__(self, author: User, post_type: str,
                  title: str, content: str):
+        if post_type not in author.allowed_post_types:
+            raise Exception(f"{author.username} can't post {post_type}")
+
         self.__author: User = author
         self.__post_type: str = post_type
         self.__title: str = title
         self.__content: str = content
 
         self.__comments: list['Post'] = []
-        self.__likes: list[User] = []
+        self.__likes: list[str] = []
+
+        self.all.append(self)
 
     @property
     def author(self) -> str:
         return self.__author.username
+
+    @property
+    def title(self) -> str:
+        return self.__title
 
     @property
     def content(self) -> str:
@@ -26,6 +37,7 @@ class Post:
     def content(self, new_content: str) -> None:
         if len(new_content) == 0:
             raise ValueError("New content can't be empty")
+
         self.__content = new_content
 
     @property
@@ -43,17 +55,17 @@ class Post:
 
         return len(self.__likes)
 
-    def user_liked(self, u: User) -> bool:
+    def user_liked(self, u: str) -> bool:
         return u in self.__likes
 
-    def like(self, liker: User) -> None:
+    def like(self, liker: str) -> None:
         if self.user_liked(liker):
             raise ValueError("this user already liked this post")
 
         self.__likes.append(liker)
         return None
 
-    def dislike(self, liker: User) -> None:
+    def dislike(self, liker: str) -> None:
         if self.user_liked(liker):
             self.__likes.remove(liker)
             return None
@@ -65,7 +77,7 @@ class Post:
 
         post_info: list[str] = []
 
-        post_info.append(f"{self.__post_type} post by {self.__author.name}"
+        post_info.append(f"{self.__post_type} post by {self.__author.name.title()}"
                          + f"(@{self.__author})")
 
         post_info.append(f"ᯓ➤ {self.__title.upper()}")
@@ -75,6 +87,6 @@ class Post:
                                        subsequent_indent="      "))
         post_info.append("")
         post_info.append(
-            f"  [...]{len(self.__comments)} commentss <3 {self.likes} likes")
+            f"  [...] {len(self.__comments)} commentss <3 {self.likes} likes")
 
         return post_info
