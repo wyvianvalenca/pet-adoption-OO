@@ -87,6 +87,6 @@ class Post:
                                        subsequent_indent="      "))
         post_info.append("")
         post_info.append(
-            f"  [...] {len(self.__comments)} commentss <3 {self.likes} likes")
+            f"  :speech_balloon: {len(self.__comments)} commentss :heart: {self.likes} likes")
 
         return post_info

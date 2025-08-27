@@ -13,7 +13,8 @@ class Application:
     def get_apps_applicant(cls, applicant: str) -> list['Application']:
         return [app for app in cls.all if app.__applicant == applicant]
 
-    def __init__(self, applicant: str, pet: str, pet_form: Form, answers: list[str]):
+    def __init__(self, applicant: str, pet: str,
+                 pet_form: Form, answers: list[str]):
         if len(answers) != len(pet_form):
             raise Exception(
                 f"{len(answers)} answers for {len(pet_form)} questions")

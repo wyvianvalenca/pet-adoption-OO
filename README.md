@@ -163,7 +163,7 @@ Organizations that rescue pets and facilitate adoptions.
 
 ---
 
-## Pet
+## Pet [OK]
 Rescued animals
 
 - has:
