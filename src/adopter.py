@@ -1,12 +1,17 @@
+from typing_extensions import override
 from .user import User
 
 
 class Adopter(User):
     all: dict[str, 'Adopter'] = {}
 
+    @override
     @classmethod
-    def login(cls, username: str) -> 'Adopter':
-        return cls.all[username]
+    def login(cls, username: str) -> 'Adopter | None':
+        if username in cls.all.keys():
+            return cls.all[username]
+        else:
+            return None
 
     def __init__(self, username: str):
         if username in self.all:

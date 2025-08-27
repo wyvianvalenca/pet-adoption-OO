@@ -1,9 +1,11 @@
+from typing_extensions import override
 from .user import User
 
 
 class Shelter(User):
     all: dict[str, 'Shelter'] = {}
 
+    @override
     @classmethod
     def login(cls, username: str) -> 'Shelter':
         return cls.all[username]
@@ -35,5 +37,6 @@ class Shelter(User):
 
     def formatted_profile(self) -> list[str]:
         shelter_info: list[str] = self.__profile.formatted_list()
-        shelter_info.append(f"    > Allowed pets: {self.allowed_pet_types}")
+        shelter_info.append(
+            f"    > [bold]Allowed[/] pets: {self.allowed_pet_types}")
         return shelter_info
