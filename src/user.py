@@ -5,9 +5,9 @@ from src.user_profile import Profile
 
 
 class User(ABC):
-    def __init__(self, username: str):
+    def __init__(self, username: str, name: str):
         self.__username: str = username
-        self.__profile: Profile
+        self.__profile: Profile = Profile(name)
         self.allowed_post_types: list[str] = ["forum", "comment"]
 
     @property
@@ -36,4 +36,4 @@ class User(ABC):
     def __str__(self) -> str:
         """inside prints, show only the username"""
 
-        return self.__username
+        return "@" + self.__username

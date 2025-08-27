@@ -5,16 +5,20 @@ from .user import User
 class Shelter(User):
     all: dict[str, 'Shelter'] = {}
 
+    @classmethod
+    def username_available(cls, username: str) -> bool:
+        if username in cls.all.keys():
+            return False
+
+        return True
+
     @override
     @classmethod
     def login(cls, username: str) -> 'Shelter':
         return cls.all[username]
 
-    def __init__(self, username: str):
-        if username in self.all:
-            raise Exception("username taken")
-
-        User.__init__(self, username)
+    def __init__(self, username: str, name: str):
+        User.__init__(self, username, name)
         self.__allowed_pet_types: list[str] = []
         # self.__pets: list[Pet] = []
         # self.__events: list[Event] = []
