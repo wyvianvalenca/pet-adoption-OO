@@ -169,7 +169,7 @@ class ProfileUpdater():
 
     def update_profile(self):
         self.console.print(
-            "Let's update this self.profile! Here's your current info!")
+            "Let's update this profile! Here's your current info!")
 
         self.console.print(Panel.fit("\n".join(self.profile_owner.formatted_list()),
                                      title="Current Profile"))
