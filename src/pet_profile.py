@@ -13,18 +13,40 @@ class PetProfile(Profile):
                  breed: str | None = None,
                  color: str | None = None):
         Profile.__init__(self, name, birth, address, description)
-        self.breed: str | None = breed
-        self.color: str | None = color
+        self.__breed: str | None = breed
+        self.__color: str | None = color
+
+    @property
+    def breed(self) -> str | None:
+        """returns None if no breed was added to profile"""
+
+        return self.__breed
+
+    @breed.setter
+    def breed(self, new_breed: str):
+        if len(new_breed) > 0:
+            self.__breed = new_breed
+
+    @property
+    def color(self) -> str | None:
+        """returns None if no breed was added to profile"""
+
+        return self.__breed
+
+    @color.setter
+    def color(self, new_color: str):
+        if len(new_color) > 0:
+            self.__color = new_color
 
     @override
     def as_list(self) -> list[str]:
         info: list[str] = Profile.as_list(self)
 
-        if self.breed:
-            info.append(self.breed)
+        if self.__breed:
+            info.append(self.__breed)
 
-        if self.color:
-            info.append(self.color)
+        if self.__color:
+            info.append(self.__color)
 
         return info
 

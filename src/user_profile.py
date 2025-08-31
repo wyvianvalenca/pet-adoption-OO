@@ -16,9 +16,68 @@ class Profile:
 
     @property
     def name(self) -> str:
-        return self.__name.title()
+        return self.__name
 
-    # TODO: add properties and setters with data validation
+    @name.setter
+    def name(self, new_name: str):
+        if len(new_name) > 0:
+            self.__name = new_name
+
+    @property
+    def birth(self) -> str | None:
+        """returns None if no birth was added to profile"""
+
+        if self.__birth:
+            return self.__birth.isoformat()
+        return None
+
+    @birth.setter
+    def birth(self, new_birth: date):
+        if isinstance(new_birth, date) and new_birth <= date.today():
+            self.__birth = new_birth
+
+    @property
+    def address(self) -> str | None:
+        """returns None if no address was added to profile"""
+
+        if self.__address:
+            return self.__address.__str__()
+
+        return None
+
+    @address.setter
+    def address(self, new_address: Address):
+        if isinstance(new_address, Address):
+            self.__address = new_address
+
+    @property
+    def city(self) -> str | None:
+        """returns None if no address was added to profile"""
+
+        if self.__address:
+            return self.__address.city
+
+        return None
+
+    @property
+    def state(self) -> str | None:
+        """returns None if no address was added to profile"""
+
+        if self.__address:
+            return self.__address.state
+
+        return None
+
+    @property
+    def description(self) -> str | None:
+        """returns None if no description was added to profile"""
+
+        return self.__description
+
+    @description.setter
+    def description(self, new_desc: str):
+        if len(new_desc) > 0:
+            self.__description = new_desc
 
     def as_list(self) -> list[str]:
         info: list[str] = [self.__name]
@@ -35,7 +94,7 @@ class Profile:
         return info
 
     def formatted_list(self) -> list[str]:
-        profile_info: list[str] = [f"{self.__name.upper()}"]
+        profile_info: list[str] = [f"\n{self.__name.upper()}"]
 
         if self.__birth:
             today = date.today()
