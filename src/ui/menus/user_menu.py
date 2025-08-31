@@ -4,10 +4,10 @@ from rich.console import Console
 from src.donation import Donation
 from src.pet import Pet
 from src.post import Post
-from src.ui.clean import clear_screen
 from src.user import User
 from src.shelter import Shelter
 
+from src.ui.clean import clear_screen
 from src.ui.lister import Lister
 from src.ui.posts_ui import PostUI
 from src.ui.profile_updater import ProfileUpdater
@@ -80,7 +80,6 @@ class UserMenu:
             self.console.print(header("MAIN MENU"))
             self.console.print()
             option = questionary.select("Choose an option:",
-                                        choices=list(self.actions.keys()),
-                                        use_shortcuts=True).ask()
+                                        choices=list(self.actions.keys())).ask()
 
             self.actions[option]['func'](*self.actions[option]['args'])

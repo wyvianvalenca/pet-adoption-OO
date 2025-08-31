@@ -5,16 +5,15 @@ from rich.console import Console
 import initial_info
 
 from src.adopter import Adopter
-from src.application import Application
-from src.pet import Pet
-from src.post import Post
 from src.shelter import Shelter
 
 from src.ui.clean import clear_screen
-from src.ui.lister import Lister
 from src.ui.header import header
-from src.ui.user_menu import UserMenu
+from src.ui.menus.listing_menu import ListingMenu
+from src.ui.menus.social_menu import SocialMenu
+from src.ui.menus.menu import Menu
 
+# globals
 console = Console()
 
 
@@ -23,9 +22,10 @@ def welcome() -> Adopter | Shelter | None:
         clear_screen()
 
         console.print(header("Pet Adoption App"))
+        console.print()
 
         user_type: str = questionary.select("Choose your role!",
-                                            choices=["Adopter", "Shelter", "Quit"]).ask()
+                                            choices=["Quit", "Adopter", "Shelter"]).ask()
 
         if not user_type or user_type == "Quit":
             console.print("\nGoodbye!")
@@ -91,12 +91,16 @@ def main():
     if not user:
         return
 
-    UserMenu(user, console).show_menu()
+    social_menu: Menu = SocialMenu(user, console)
+    listing_menu: Menu = ListingMenu(user, console)
+
+    main_menu = Menu(user, console)
+    main_menu.add_menu("Social Menu", social_menu, [])
+    main_menu.add_menu("Listing Menu", listing_menu, [])
+
+    main_menu.show_menu()
 
     main()
-
-    # ProfileUpdater(user, console).update_profile()
-    # PostUI(console, user).show_posts(list(Post.data.values()), True)
 
 
 if __name__ == "__main__":
