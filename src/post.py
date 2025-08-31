@@ -1,11 +1,10 @@
+from src.model import Model
 from src.user import User
 
-import textwrap
+# import textwrap
 
 
-class Post:
-    all: list['Post'] = []
-
+class Post(Model):
     def __init__(self, author: User, post_type: str,
                  title: str, content: str):
         if post_type not in author.allowed_post_types:
@@ -19,7 +18,7 @@ class Post:
         self.__comments: list['Post'] = []
         self.__likes: list[str] = []
 
-        self.all.append(self)
+        self.data[title] = self
 
     @property
     def author(self) -> str:
@@ -72,19 +71,33 @@ class Post:
 
         raise ValueError("this user did not liked this post")
 
+    def formatted_title(self) -> str:
+        title: str = f"{self.__post_type.title()} post by "
+        title += f"{self.__author.name.title()} ({self.__author})"
+        title += f"\nᯓ➤ {self.__title.upper()}\n"
+
+        return title
+
+    def formatted_footer(self) -> str:
+        return f"\n:speech_balloon: {len(self.__comments)} commentss :heart: {self.likes} likes"
+
+    def __str__(self) -> str:
+        return f"{self.__post_type} by {self.__author}"
+
     def formatted_list(self) -> list[str]:
         """Generates a list of strings with the post's info formatted"""
 
         post_info: list[str] = []
 
-        post_info.append(f"{self.__post_type} post by {self.__author.name.title()}"
-                         + f"(@{self.__author})")
+        post_info.append(f"{self.__post_type.title()} post by "
+                         + f"{self.__author.name.title()} ({self.__author})")
 
-        post_info.append(f"ᯓ➤ {self.__title.upper()}")
+        post_info.append(f"\nᯓ➤ {self.__title.upper()}")
         post_info.append("")
-        post_info.extend(textwrap.wrap(self.__content,
-                                       initial_indent="  ╰┈➤ ",
-                                       subsequent_indent="      "))
+        # post_info.extend(textwrap.wrap(self.__content,
+        #                                initial_indent="  ╰┈➤ ",
+        #                                subsequent_indent="      "))
+        post_info.append(self.__content)
         post_info.append("")
         post_info.append(
             f"  :speech_balloon: {len(self.__comments)} commentss :heart: {self.likes} likes")

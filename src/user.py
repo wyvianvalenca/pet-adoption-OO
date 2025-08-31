@@ -1,39 +1,35 @@
-from abc import ABC, abstractmethod
-from typing_extensions import override
+from typing_extensions import Self, override
 
+from src.model import Model
 from src.user_profile import Profile
 
 
-class User(ABC):
+class User(Model):
+    @classmethod
+    def username_available(cls, username: str) -> bool:
+        if username in cls.data.keys():
+            return False
+
+        return True
+
+    @classmethod
+    def login(cls, username: str) -> Self:
+        return cls.data[username]
+
     def __init__(self, username: str, name: str):
         self.__username: str = username
-        self.__profile: Profile = Profile(name)
+        self.profile: Profile = Profile(name)
         self.allowed_post_types: list[str] = ["forum", "comment"]
+        self.data[username] = self
 
     @property
     def username(self) -> str:
         return self.__username
 
     @property
-    def profile(self) -> list[str]:
-        return self.__profile.as_list()
-
-    @property
     def name(self) -> str:
-        return self.__profile.name
-
-    # TODO: add methods to create and update profile
-
-    @abstractmethod
-    def login():
-        pass
-
-    @abstractmethod
-    def formatted_profile(self) -> list[str]:
-        pass
+        return self.profile.name
 
     @override
     def __str__(self) -> str:
-        """inside prints, show only the username"""
-
-        return "@" + self.__username
+        return f"@{self.__username} - {self.profile.name}"

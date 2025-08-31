@@ -1,17 +1,16 @@
 from src.answer import Answer
 from src.form import Form
+from src.model import Model
 
 
-class Application:
-    all: list['Application'] = []
-
+class Application(Model):
     @classmethod
     def get_apps_pet(cls, pet: str) -> list['Application']:
-        return [app for app in cls.all if app.__pet == pet]
+        return [app for app in cls.data.values() if app.__pet == pet]
 
     @classmethod
     def get_apps_applicant(cls, applicant: str) -> list['Application']:
-        return [app for app in cls.all if app.__applicant == applicant]
+        return [app for app in cls.data.values() if app.__applicant == applicant]
 
     def __init__(self, applicant: str, pet: str,
                  pet_form: Form, answers: list[str]):
@@ -37,7 +36,7 @@ class Application:
 
         self.__score: float = right_answers / len(pet_form)
 
-        self.all.append(self)
+        self.data[f"{pet}-{applicant}"] = self
 
     @property
     def score(self) -> float:

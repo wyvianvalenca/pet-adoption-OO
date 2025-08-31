@@ -1,16 +1,16 @@
 from datetime import date
+from typing_extensions import override
 
 from src.application import Application
 from src.form import Form
+from src.model import Model
 from src.pet_profile import PetProfile
 from src.question import Question
 from src.address import Address
 from src.adopter import Adopter
 
 
-class Pet:
-    all: dict[str, 'Pet'] = {}
-
+class Pet(Model):
     def __init__(self, name: str, pet_type: str,
                  birth: date | None = None,
                  address: Address | None = None,
@@ -19,19 +19,19 @@ class Pet:
                  color: str | None = None):
 
         self.__pet_type: str = pet_type
-        self.__profile: PetProfile = PetProfile(name, birth, address,
-                                                desc, breed, color)
+        self.profile: PetProfile = PetProfile(name, birth, address,
+                                              desc, breed, color)
         self.__status: str = "rescued"
-        self.__form: Form = Form(
-            [Question(
-                f"Are you sure you want to adopt {name}?",
-                ["Yes", "No"],
-                "Yes")])
+        self.__form: Form = Form("standard",
+                                 [Question(
+                                     f"Are you sure you want to adopt {name}?",
+                                     ["Yes", "No"],
+                                     "Yes")])
 
         self.__applications: list[Application] = []
         self.__tutor: Adopter | None = None
 
-        self.all[name] = self
+        self.data[name] = self
 
     def start_treatment(self) -> None:
         self.__status = "in treatment"
@@ -50,5 +50,19 @@ class Pet:
 
     def apply_adoption(self, applicant: str, answers: list[str]) -> None:
         new_app: Application = Application(
-            applicant, self.__profile.name, self.__form, answers)
+            applicant, self.profile.name, self.__form, answers)
         self.__applications.append(new_app)
+
+    @override
+    def formatted_list(self) -> list[str]:
+        pet_info: list[str] = self.profile.formatted_list()
+
+        pet_info.append(f"    > [bold]Pet type:[/] {self.__pet_type}")
+        pet_info.append(f"    > [bold]Status:[/] {self.__status.upper()}")
+        pet_info.append(
+            f"    > [bold]Applications:[/] {len(self.__applications)}")
+
+        return pet_info
+
+    def __str__(self) -> str:
+        return f"{self.profile.name}: {self.__pet_type}, {self.__status}, {len(self.__applications)} applications"

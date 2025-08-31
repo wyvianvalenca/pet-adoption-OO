@@ -1,12 +1,12 @@
+from src.model import Model
 from src.question import Question
 
 
-class Form:
-    all: list['Form'] = []
-
-    def __init__(self, questions: list[Question] = []):
+class Form(Model):
+    def __init__(self, name: str, questions: list[Question] = []):
+        self.name = name
         self.__questions: list[Question] = questions
-        self.all.append(self)
+        self.data[name] = self
 
     def add_question(self, name: str, options: list[str], right: str):
         if name in [q.name for q in self.__questions]:
