@@ -90,8 +90,7 @@ class PostUI:
 
         self.console.print()
         option = questionary.select("Choose an option:",
-                                    choices=list(actions.keys()),
-                                    use_shortcuts=True).ask()
+                                    choices=list(actions.keys())).ask()
 
         actions[option]()
 
