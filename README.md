@@ -3,13 +3,13 @@ A system with classes for pets, shelters, and adopters, facilitating pet searche
 
 # Functional Requirements
 
-- User Account Management: Users can create and manage their accounts;
-- Pet Profile Management: Managing profiles for pets available for adoption;
-- Shelter and Rescue Organization Profiles: Profiles for shelters and rescue organizations;
+- [OK] User Account Management: Users can create and manage their accounts;
+- [OK] Pet Profile Management: Managing profiles for pets available for adoption;
+- [OK] Shelter and Rescue Organization Profiles: Profiles for shelters and rescue organizations;
 - Event Listing and Management: Listing events like adoption drives and fundraisers;
-- Educational Resources: Providing resources on pet care and adoption;
-- Success Stories and Testimonials: Sharing success stories and testimonials from adopters;
-- Community Forum: A forum for adopters and pet lovers to share experiences and advice.
+- [OK] Educational Resources: Providing resources on pet care and adoption;
+- [OK] Success Stories and Testimonials: Sharing success stories and testimonials from adopters;
+- [OK] Community Forum: A forum for adopters and pet lovers to share experiences and advice.
 - Search and Filter Options: Enabling users to search and filter pets based on various criteria;
 - Adoption Application Processing: Handling and processing adoption applications;
 - Donation Processing: Facilitating donations to shelters and rescue organizations;
@@ -103,7 +103,7 @@ Class for storing a structured address
 - can:
     - format: returns a pretty formatted address
 
-## Profile [IN PROGRESS]
+## Profile [OK]
 General informations for users and pets
 
 - has:
@@ -116,9 +116,10 @@ General informations for users and pets
     - update_profile: change any attribute
     - format: returns all the profile's info in a pretty formatted way
 
+
 ---
 
-## User [IN PROGRESS]
+## User [OK]
 
 - has:
     - username (str)
@@ -128,13 +129,10 @@ General informations for users and pets
 
 <!-- >  TODO: review methods -->
 - can:
-    - list_posts: access all posts by all users
-    - list_shelters: view all registered shelters
-    - list_events: view all registered events
-    - list_pets: view and interact with all available pets
-    - query_pets: search pet based on various criteria
+    - login: returns User object
+    - format: returns brief User description
 
-## Adopter (User)
+## Adopter (User) [OK]
 Inherits User's attributes and methods
 
 - has:
@@ -145,7 +143,7 @@ Inherits User's attributes and methods
     - donate: donate to a shelter
     - apply: fill out form to adopt pet
 
-## Shelter (User)
+## Shelter (User) [OK]
 Inherits User's attributes and methods.
 
 Organizations that rescue pets and facilitate adoptions.
@@ -202,16 +200,6 @@ A social post
     - like: like the post
     - format: returns posts info in a pretty formatted way
 
-## Feed
-Feed with all registered posts
-
-- has:
-    - posts (list[Post])
-
-- can:
-    - list_posts: show all registered posts
-    - create_post: add new post
-    - delete_post: remove post from feed
 
 ---
 
