@@ -7,6 +7,10 @@ class Model(ABC):
         cls.data: dict[str, Self] = {}
         return super().__init_subclass__()
 
+    @classmethod
+    def __contains__(cls, item: str) -> bool:
+        return item in cls.data.keys()
+
     @abstractmethod
     def formatted_list(self) -> list[str]:
         """returns all info in a formated list"""
