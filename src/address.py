@@ -11,6 +11,14 @@ class Address:
         self.__city: str = city
         self.__state: str = state
 
+    @property
+    def city(self) -> str:
+        return self.__city
+
+    @property
+    def state(self) -> str:
+        return self.__state
+
     @override
     def __str__(self) -> str:
         return (f"{self.__street}, {self.__number}, {self.__district} - "
