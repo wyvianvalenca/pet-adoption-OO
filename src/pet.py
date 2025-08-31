@@ -11,13 +11,18 @@ from src.adopter import Adopter
 
 
 class Pet(Model):
-    def __init__(self, name: str, pet_type: str,
+    @classmethod
+    def by_shelter(cls, shelter: str) -> list['Pet']:
+        return [pet for pet in cls.data.values() if pet.__shelter == shelter]
+
+    def __init__(self, name: str, shelter: str, pet_type: str,
                  birth: date | None = None,
                  address: Address | None = None,
                  desc: str | None = None,
                  breed: str | None = None,
                  color: str | None = None):
 
+        self.__shelter: str = shelter
         self.__pet_type: str = pet_type
         self.profile: PetProfile = PetProfile(name, birth, address,
                                               desc, breed, color)

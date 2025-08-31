@@ -6,8 +6,6 @@ class Shelter(User):
         User.__init__(self, username, name)
         self.__allowed_pet_types: list[str] = []
         self.allowed_post_types.append("educational")
-        # self.__pets: list[Pet] = []
-        # self.__events: list[Event] = []
 
     @property
     def allowed_pet_types(self) -> str:
