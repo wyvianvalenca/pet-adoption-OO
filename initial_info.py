@@ -13,9 +13,12 @@ def create_data():
     s1 = Shelter("csf", "Casa Sao Franscisco")
     s2 = Shelter("rh", "Reptile House")
 
-    p1 = Pet("shiro", "dog")
-    p2 = Pet("becky", "dog")
-    p3 = Pet("jack", "turtle")
+    s1.add_allowed_pet_type("dog")
+    s2.add_allowed_pet_type("turtle")
+
+    p1 = Pet("shiro", s1.username, "dog")
+    p2 = Pet("becky", s1.username, "dog")
+    p3 = Pet("jack", s2.username, "turtle")
 
     p1.apply_adoption(a1.username, ["Yes"])
     p1.apply_adoption(a2.username, ["Yes"])

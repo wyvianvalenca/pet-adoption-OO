@@ -10,6 +10,7 @@ from src.shelter import Shelter
 from src.ui.clean import clear_screen
 from src.ui.header import header
 from src.ui.menus.listing_menu import ListingMenu
+from src.ui.menus.shelter_menu import ShelterMenu
 from src.ui.menus.social_menu import SocialMenu
 from src.ui.menus.menu import Menu
 
@@ -91,14 +92,19 @@ def main():
     if not user:
         return
 
-    social_menu: Menu = SocialMenu(user, console)
-    listing_menu: Menu = ListingMenu(user, console)
+    if isinstance(user, Adopter):
+        social_menu: Menu = SocialMenu(user, console)
+        listing_menu: Menu = ListingMenu(user, console)
 
-    main_menu = Menu(user, console)
-    main_menu.add_menu("Social Menu", social_menu, [])
-    main_menu.add_menu("Listing Menu", listing_menu, [])
+        main_menu = Menu(user, console)
+        main_menu.add_menu("Social Menu", social_menu, [])
+        main_menu.add_menu("Listing Menu", listing_menu, [])
 
-    main_menu.show_menu()
+        main_menu.show_menu()
+
+    elif isinstance(user, Shelter):
+        shelter_menu: ShelterMenu = ShelterMenu(user, console)
+        shelter_menu.show_menu()
 
     main()
 
