@@ -1,61 +1,37 @@
-from ctypes import Union
-import os
-
 import questionary
 
-from rich.align import Align
 from rich.console import Console
-from rich.panel import Panel
-from rich.prompt import Prompt
 
 import initial_info
 
 from src.adopter import Adopter
+from src.application import Application
+from src.pet import Pet
+from src.post import Post
 from src.shelter import Shelter
-from src.user import User
+
+from src.ui.clean import clear_screen
+from src.ui.lister import Lister
+from src.ui.header import header
+from src.ui.user_menu import UserMenu
 
 console = Console()
-
-ASCII_ART: str = """
-    Art by Joan Stark
-          ,_     _,       _     /)---(\\            /~~~\\
-          |\\\___//|       \\\   (/ . . \\)          /  .. \\
-          |=6   6=|        \\\__)-\\(.)/           (_,\\  |_)
-          \\=._Y_.=/        \\_       (_           /   \\@/     /^^^\\
-           )  `  (    ,    (___/-(____)   _     /      \\    / . . \\
-          /       \\  ((                   \\\   /  `    |    V\\ Y /V
-          |       |   ))     WELCOME TO    \\\/  \\   | _\\     / - \\
-         /| |   | |\\_//    Pet Adoption!    \\   /__'|| \\\_   |    \\
-    jgs  \\| |._.| |/-`                       \\_____)|_).\\_). ||(__v
-          '"'   '"'
-"""
-
-WELCOME_PANEL: Panel = Panel(Align.center(ASCII_ART),
-                             title="Pet Adoption App", style="violet")
-
-
-def clear_screen():
-    # Check the operating system
-    if os.name == 'nt':  # For Windows
-        _ = os.system('cls')
-    else:  # For Linux, macOS, and other Unix-like systems
-        _ = os.system('clear')
 
 
 def welcome() -> Adopter | Shelter | None:
     while True:
         clear_screen()
 
-        console.print(WELCOME_PANEL)
+        console.print(header("Pet Adoption App"))
 
         user_type: str = questionary.select("Choose your role!",
-                                            choices=["Adopter", "Shelter"]).ask()
+                                            choices=["Adopter", "Shelter", "Quit"]).ask()
 
-        if not user_type:
-            console.print("Goodbye!")
+        if not user_type or user_type == "Quit":
+            console.print("\nGoodbye!")
             return None
 
-        print()
+        console.print()
 
         user_access: str = questionary.select("How do you want to access PetApp?",
                                               choices=["Login", "Sign Up"]).ask()
@@ -73,6 +49,7 @@ def welcome() -> Adopter | Shelter | None:
 
 def sign_up(user_type: str) -> Adopter | Shelter:
     while True:
+        console.print()
         username: str = questionary.text("Choose an username: ").ask()
 
         if user_type == "Adopter":
@@ -81,7 +58,7 @@ def sign_up(user_type: str) -> Adopter | Shelter:
                     "What's your first name?").ask()
                 last_name: str = questionary.text(
                     "What's your last name?").ask()
-                name: str = first_name.title() + last_name.title()
+                name: str = first_name.title() + " " + last_name.title()
                 return Adopter(username, name)
 
         elif user_type == "Shelter":
@@ -94,6 +71,7 @@ def sign_up(user_type: str) -> Adopter | Shelter:
 
 
 def login(user_type: str) -> Adopter | Shelter | None:
+    console.print()
     username: str = questionary.text("Type your username: ").ask()
 
     if user_type == "Adopter":
@@ -113,10 +91,15 @@ def main():
     if not user:
         return
 
-    print(user)
+    UserMenu(user, console).show_menu()
+
+    main()
+
+    # ProfileUpdater(user, console).update_profile()
+    # PostUI(console, user).show_posts(list(Post.data.values()), True)
 
 
 if __name__ == "__main__":
-    initial_info.create_users()
+    initial_info.create_data()
 
     main()
