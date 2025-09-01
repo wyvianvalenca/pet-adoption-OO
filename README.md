@@ -16,7 +16,7 @@ A system with classes for pets, shelters, and adopters, facilitating pet searche
 
 # Software Project (Classes)
 
-## Event
+## Event [OK]
 Shelter organized events (fundraisers, pet fairs, etc.)
 
 - has:
