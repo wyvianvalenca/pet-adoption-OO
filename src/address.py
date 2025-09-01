@@ -22,4 +22,4 @@ class Address:
     @override
     def __str__(self) -> str:
         return (f"{self.__street}, {self.__number}, {self.__district} - "
-                + f"{self.__city}/{self.__state.upper()}")
+                + f"{self.__city}/{self.__state}")

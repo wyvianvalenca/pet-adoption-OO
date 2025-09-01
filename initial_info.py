@@ -1,6 +1,8 @@
 from datetime import date
+from src.address import Address
 from src.adopter import Adopter
 from src.donation import Donation
+from src.event import Event
 from src.pet import Pet
 from src.post import Post
 from src.shelter import Shelter
@@ -53,3 +55,11 @@ If you're available to lend a hand and want to help our residents find their for
 
     d1 = Donation(a1.username, s1.username, 100.00, date.today())
     d2 = Donation(a1.username, s2.username, 120.00, date.today())
+
+    e1 = Event("fundraiser", date(2025, 10, 10), Address(
+        "Av. Fernandes Lima", "Farol", "123456", 123456, "Maceio", "Alagoas"),
+        s1.username)
+
+    e1 = Event("fundraiser 2", date(2025, 12, 10), Address(
+        "Av. Fernandes Lima", "Farol", "123456", 123456, "Maceio", "Alagoas"),
+        s2.username)

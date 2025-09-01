@@ -6,7 +6,7 @@ A system with classes for pets, shelters, and adopters, facilitating pet searche
 - [OK] User Account Management: Users can create and manage their accounts;
 - [OK] Pet Profile Management: Managing profiles for pets available for adoption;
 - [OK] Shelter and Rescue Organization Profiles: Profiles for shelters and rescue organizations;
-- Event Listing and Management: Listing events like adoption drives and fundraisers;
+- [OK] Event Listing and Management: Listing events like adoption drives and fundraisers;
 - [OK] Educational Resources: Providing resources on pet care and adoption;
 - [OK] Success Stories and Testimonials: Sharing success stories and testimonials from adopters;
 - [OK] Community Forum: A forum for adopters and pet lovers to share experiences and advice.

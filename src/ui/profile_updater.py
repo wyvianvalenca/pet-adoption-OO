@@ -44,7 +44,7 @@ class ProfileUpdater():
 
         self.console.print()
 
-        new_date: str = questionary.text("New birth date:",
+        new_date: str = questionary.text("New birth day:",
                                          validate=lambda text: True if int(text) >= 1 and
                                          int(text) <= 31 else "Invalid date").ask()
         if new_date is None:

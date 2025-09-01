@@ -25,10 +25,11 @@ class Lister:
         questionary.press_any_key_to_continue().ask()
 
     def detailed_list(self):
-        formatted = f"{self.items_name.upper()}"
+        formatted = ""
         for item in self.items:
-            formatted += "\n" + "\n".join(item.formatted_list())
+            formatted += "\n" + "\n".join(item.formatted_list()) + "\n"
 
-        self.console.print(Panel.fit(formatted))
+        self.console.print(
+            Panel.fit(formatted, title=f"{self.items_name.upper()}"))
 
         questionary.press_any_key_to_continue().ask()

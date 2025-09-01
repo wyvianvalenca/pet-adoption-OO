@@ -1,5 +1,6 @@
 from rich.console import Console
 
+from src.event import Event
 from src.user import User
 from src.shelter import Shelter
 from src.donation import Donation
@@ -16,7 +17,7 @@ class ListingMenu(Menu):
         self.name = "listing menu"
 
         self.actions = {
-            "Return to Welcome Page":
+            "Return to User Menu":
                 {"func": self.go_back,
                  "args": []},
 
@@ -26,11 +27,14 @@ class ListingMenu(Menu):
                  "args": []},
 
             "Show Pets":
-            {"func": Lister("pets", Pet.data.values(),
-                            self.console).detailed_list,
-                    "args": []},
+                {"func": Lister("pets", Pet.data.values(),
+                                self.console).detailed_list,
+                 "args": []},
 
-            "Show Events": {"func": self.wip, "args": []},
+            "Show Events":
+                {"func": Lister("events", Event.data.values(),
+                                self.console).detailed_list,
+                 "args": []},
 
             "Show My Donations":
                 {"func": Lister(f"{user.username}'s donations",
