@@ -18,7 +18,7 @@ class EventMenu(Menu):
         self.name = "event management"
 
         self.actions = {
-            "Return to User Menu": {
+            "Return to Main Menu": {
                 "func": self.go_back,
                 "args": []},
 

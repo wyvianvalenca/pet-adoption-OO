@@ -17,7 +17,7 @@ class ListingMenu(Menu):
         self.name = "listing menu"
 
         self.actions = {
-            "Return to User Menu":
+            "Return to Main Menu":
                 {"func": self.go_back,
                  "args": []},
 

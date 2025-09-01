@@ -18,7 +18,7 @@ class PetMenu(Menu):
         self.updater: ProfileUpdater = ProfileUpdater(user, console)
 
         self.actions = {
-            "Return to User Menu": {
+            "Return to Main Menu": {
                 "func": self.go_back,
                 "args": []},
 

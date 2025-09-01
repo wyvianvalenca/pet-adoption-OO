@@ -19,7 +19,7 @@ class SocialMenu(Menu):
                 {"func": self.go_back,
                  "args": []},
 
-            "Show Social Field":
+            "Show Feed":
                 {"func": self.show_posts,
                  "args": []},
 
