@@ -35,12 +35,12 @@ class PetMenu(Menu):
                 "args": []},
 
             "Add Question to Pet's Form": {
-                "func": self.wip,
+                "func": self.add_question,
                 "args": []},
 
             "View Pet's Adoption Applications": {
                 "func": self.wip,
-                "args": []},
+                "args": []}
 
         }
 
@@ -91,3 +91,36 @@ class PetMenu(Menu):
         if update:
             self.updater.update_updater(new_pet)
             self.updater.update_profile()
+
+    def add_question(self):
+        pet: Pet | None = self.get_pet_name()
+
+        if pet is None:
+            return
+
+        self.console.print()
+
+        name: str = questionary.text("Type your question:",
+                                     validate=NameValidator,
+                                     qmark=">>").ask()
+
+        self.console.print()
+
+        options: list[str] = []
+        while True:
+            option: str = questionary.text("Type a possible answer (or <q> to stop):",
+                                           validate=NameValidator,
+                                           qmark="·").ask()
+
+            if option == "q" or option is None:
+                break
+
+            options.append(option)
+
+        self.console.print()
+
+        correct: str = questionary.text("Type the right answer:",
+                                        validate=lambda text: True if text in options else "Right answer must be one of the provided options",
+                                        qmark="✓", instruction="Choose one of the provided options as the correct answer for this question").ask()
+
+        pet.add_template_question(name, options, correct)
