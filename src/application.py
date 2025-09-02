@@ -43,7 +43,7 @@ class Application(Model):
         return self.__score
 
     def __str__(self) -> str:
-        return f"@{self.__applicant}'s application to adopt {self.__pet.title()}"
+        return f"[bold on purple4]@{self.__applicant}'s application to adopt {self.__pet.title()}[/]"
 
     def formatted_list(self) -> list[str]:
         application_info: list[str] = [f"{self}", ""]
@@ -52,6 +52,7 @@ class Application(Model):
             application_info.append(f"{answer}")
             application_info.append("")
 
-        application_info.append(f"Score: {self.__score * 100:.2f}%")
+        application_info.append(
+            f"Score: [repr.number]{self.__score * 100:.2f}%[/]")
 
         return application_info

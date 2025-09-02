@@ -13,11 +13,13 @@ class Answer:
 
     def __str__(self) -> str:
         if self.__is_preferred:
-            marker = "V"
+            marker = ":white_check_mark:"
+            style = "green"
         else:
-            marker = "X"
+            marker = ":cross_mark:"
+            style = "red"
 
-        return f"> {self.__question.name}\n  R: {self.__user_option} [{marker}]"
+        return f"> {self.__question.name}\n  R: [{style}]{self.__user_option} {marker}[/]"
 
     def __bool__(self) -> bool:
         return self.__is_preferred

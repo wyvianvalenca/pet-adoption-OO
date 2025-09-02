@@ -36,7 +36,7 @@ class Menu:
         }
 
     def wip(self):
-        self.console.print("We're still working on this one...")
+        self.console.print("\nWe're still working on this one...\n")
         questionary.press_any_key_to_continue().ask()
 
     def go_back(self):

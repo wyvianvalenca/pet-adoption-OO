@@ -4,6 +4,7 @@ from rich.console import Console
 
 from src.adopter import Adopter
 
+from src.application import Application
 from src.donation import Donation
 from src.shelter import Shelter
 from src.ui.lister import Lister
@@ -28,7 +29,7 @@ class AdopterMenu(Menu):
                 "args": []},
 
             "View Adoption Applications": {
-                "func": self.wip,
+                "func": self.show_applications,
                 "args": []},
 
             "Donate to a Shelter": {
@@ -56,3 +57,11 @@ class AdopterMenu(Menu):
         self.console.print(f"\nDonation registered!\n >{d}")
 
         questionary.press_any_key_to_continue().ask()
+
+    def show_applications(self):
+        apps: list[Application] = Application.get_apps_applicant(
+            self.user.username)
+
+        self.console.print()
+        Lister(f"{self.user.name}'s Adoption Applications",
+               apps, self.console).detailed_list()

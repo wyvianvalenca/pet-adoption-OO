@@ -22,7 +22,7 @@ def create_data():
     p2 = Pet("becky", s1.username, "dog")
     p3 = Pet("jack", s2.username, "turtle")
 
-    p1.apply_adoption(a1.username, ["Yes"])
+    p1.apply_adoption(a1.username, ["No"])
     p1.apply_adoption(a2.username, ["Yes"])
     p2.apply_adoption(a1.username, ["Yes"])
     p3.apply_adoption(a1.username, ["Yes"])
