@@ -1,6 +1,7 @@
 from datetime import date
 from src.address import Address
 from src.adopter import Adopter
+from src.application import Application
 from src.donation import Donation
 from src.event import Event
 from src.pet import Pet
@@ -22,10 +23,21 @@ def create_data():
     p2 = Pet("becky", s1.username, "dog")
     p3 = Pet("jack", s2.username, "turtle")
 
-    p1.apply_adoption(a1.username, ["No"])
-    p1.apply_adoption(a2.username, ["Yes"])
-    p2.apply_adoption(a1.username, ["Yes"])
-    p3.apply_adoption(a1.username, ["Yes"])
+    p1.add_template_question("How many walks can you take him on daily?",
+                             ["0", "1", "2 or more"], "2 or more")
+
+    p1.add_template_question("Are you severely affected by loud barking?",
+                             ["Yes", "No"], "No")
+
+    p1.add_template_question("How many hours will he be left alone?",
+                             ["10h+", "8h", "6h", "4h or less"], "4h or less")
+
+    ap1 = Application(a1.username, p1.profile.name, p1.form,
+                      ["Yes", "2 or more", "No", "10h+"])
+    ap2 = Application(a2.username, p1.profile.name, p1.form,
+                      ["Yes", "2 or more", "No", "4h or less"])
+    ap3 = Application(a1.username, p2.profile.name, p2.form, ["Yes"])
+    ap4 = Application(a1.username, p3.profile.name, p2.form, ["Yes"])
 
     post1 = Post(s1, "educational",
                  "The Decompression Period: Giving Your New Pet Time to Adjust", """

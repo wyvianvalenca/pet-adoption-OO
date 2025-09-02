@@ -1,6 +1,8 @@
+from src.adopter import Adopter
 from src.answer import Answer
 from src.form import Form
 from src.model import Model
+from src.pet import Pet
 
 
 class Application(Model):
@@ -25,7 +27,7 @@ class Application(Model):
         self.__pet: str = pet
 
         self.__answers: list[Answer] = []
-        self.status: str = "in review"
+        self.__status: str = "in review"
         self.feedback: str
 
         right_answers: int = 0
@@ -37,10 +39,22 @@ class Application(Model):
         self.__score: float = right_answers / len(pet_form)
 
         self.data[f"{pet}-{applicant}"] = self
+        Pet.data[pet].add_application()
 
     @property
     def score(self) -> float:
         return self.__score
+
+    def approve(self) -> None:
+        self.__status = "approved"
+        Pet.data[self.__pet].tutor = Adopter.data[self.__applicant]
+        Pet.data[self.__pet].was_adopted()
+        return None
+
+    def deny(self, feedback: str) -> None:
+        self.__status = "denied"
+        self.feedback = feedback
+        return None
 
     def __str__(self) -> str:
         return f"[bold on purple4]@{self.__applicant}'s application to adopt {self.__pet.title()}[/]"
@@ -54,5 +68,9 @@ class Application(Model):
 
         application_info.append(
             f"Score: [repr.number]{self.__score * 100:.2f}%[/]")
+
+        application_info.append(
+            f"Status: {self.__status.upper()}"
+        )
 
         return application_info
