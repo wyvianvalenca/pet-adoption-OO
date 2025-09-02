@@ -41,8 +41,8 @@ class AdopterMenu(Menu):
                 "args": []}
         })
 
-        self.add_menu("Social Feed", SocialMenu(user, console), [])
-        self.add_menu("System Items", ListingMenu(user, console), [])
+        self.add_submenu("Social Feed", SocialMenu(user, console), [])
+        self.add_submenu("System Items", ListingMenu(user, console), [])
 
     def donate(self):
         self.console.print()

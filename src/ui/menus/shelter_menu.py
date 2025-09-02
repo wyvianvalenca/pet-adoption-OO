@@ -23,10 +23,10 @@ class ShelterMenu(Menu):
                 "args": []}
         })
 
-        self.add_menu("Manage Events", EventMenu(user, console), [])
-        self.add_menu("Manage Pets", PetMenu(user, console), [])
-        self.add_menu("Social Feed", SocialMenu(user, console), [])
-        self.add_menu("System Items", ListingMenu(user, console), [])
+        self.add_submenu("Manage Events", EventMenu(user, console), [])
+        self.add_submenu("Manage Pets", PetMenu(user, console), [])
+        self.add_submenu("Social Feed", SocialMenu(user, console), [])
+        self.add_submenu("System Items", ListingMenu(user, console), [])
 
     def add_pet_type(self):
         pet_type: str = questionary.text("Type a pet type:",

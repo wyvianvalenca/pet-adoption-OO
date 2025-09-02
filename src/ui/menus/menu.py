@@ -29,7 +29,7 @@ class Menu:
 
         }
 
-    def add_menu(self, name: str, menu: 'Menu', args):
+    def add_submenu(self, name: str, menu: 'Menu', args):
         self.actions[name] = {
             "func": menu.show_menu,
             "args": args
