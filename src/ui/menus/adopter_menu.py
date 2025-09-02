@@ -1,7 +1,12 @@
+from datetime import date
 import questionary
 from rich.console import Console
 
 from src.adopter import Adopter
+
+from src.donation import Donation
+from src.shelter import Shelter
+from src.ui.lister import Lister
 
 from src.ui.menus.menu import Menu
 from src.ui.menus.social_menu import SocialMenu
@@ -24,8 +29,30 @@ class AdopterMenu(Menu):
 
             "View Adoption Applications": {
                 "func": self.wip,
+                "args": []},
+
+            "Donate to a Shelter": {
+                "func": self.donate,
                 "args": []}
         })
 
         self.add_menu("Social Feed", SocialMenu(user, console), [])
         self.add_menu("System Items", ListingMenu(user, console), [])
+
+    def donate(self):
+        self.console.print()
+        shelters = [f"{shelter}" for shelter in Shelter.data.values()]
+
+        self.console.print()
+        name: str = questionary.select("Which shelter do you want to donate to?",
+                                       choices=shelters).ask()
+        name = name.split(" - ")[0][1:]
+
+        ammount: str = questionary.text("How much to you want to donate?",
+                                        validate=lambda text: True if float(text) > 0 else "Ammount must be positive").ask()
+
+        d = Donation(self.user.username, name, float(ammount), date.today())
+
+        self.console.print(f"\nDonation registered!\n >{d}")
+
+        questionary.press_any_key_to_continue().ask()

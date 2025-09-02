@@ -22,23 +22,32 @@ class ListingMenu(Menu):
                  "args": []},
 
             "Show Shelters":
-                {"func": Lister("shelters", Shelter.data.values(),
-                                self.console).detailed_list,
+                {"func": self.show_shelters,
                  "args": []},
 
             "Show Pets":
-                {"func": Lister("pets", Pet.data.values(),
-                                self.console).detailed_list,
+                {"func": self.show_pets,
                  "args": []},
 
             "Show Events":
-                {"func": Lister("events", Event.data.values(),
-                                self.console).detailed_list,
+                {"func": self.show_events,
                  "args": []},
 
             "Show My Donations":
-                {"func": Lister(f"{user.username}'s donations",
-                                Donation.by_user(self.user.username),
-                                self.console).simple_list,
+                {"func": self.show_my_donations,
                  "args": []},
         }
+
+    def show_shelters(self):
+        Lister("shelters", Shelter.data.values(), self.console).detailed_list()
+
+    def show_pets(self):
+        Lister("pets", Pet.data.values(), self.console).detailed_list()
+
+    def show_events(self):
+        Lister("events", Event.data.values(), self.console).detailed_list()
+
+    def show_my_donations(self):
+        Lister(f"{self.user.name}'s donations",
+               Donation.by_user(self.user.username),
+               self.console).simple_list()

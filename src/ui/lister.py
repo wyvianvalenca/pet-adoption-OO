@@ -16,11 +16,12 @@ class Lister:
         self.items = new_items
 
     def simple_list(self):
-        formatted = f"{self.items_name.upper()}"
+        formatted = ""
         for item in self.items:
             formatted += f"\n> {item}"
 
-        self.console.print(Panel.fit(formatted))
+        self.console.print(
+            Panel.fit(formatted, title=f"{self.items_name.upper()}"))
 
         questionary.press_any_key_to_continue().ask()
 

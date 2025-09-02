@@ -2,6 +2,8 @@ from datetime import date
 from typing_extensions import override
 
 from src.model import Model
+from src.adopter import Adopter
+from src.shelter import Shelter
 
 
 class Donation(Model):
@@ -24,7 +26,7 @@ class Donation(Model):
         self.__ammount: float = ammount
         self.__donation_date: date = donation_date
 
-        self.data[f"{donor}-{receiver}-{donation_date.isoformat()}"] = self
+        self.data[str(len(self.data))] = self
 
     @property
     def donor(self) -> str:
@@ -44,7 +46,7 @@ class Donation(Model):
 
     @override
     def __str__(self) -> str:
-        return f"@{self.__donor} has donated US$ {self.__ammount:.2f} to @{self.__receiver}"
+        return f"{Adopter.data[self.__donor].name} has donated [yellow]US${self.__ammount:.2f}[/] to {Shelter.data[self.__receiver].name}"
 
     @override
     def formatted_list(self) -> list[str]:
