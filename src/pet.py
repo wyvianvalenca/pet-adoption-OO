@@ -70,9 +70,9 @@ class Pet(Model):
         pet_info.append(f"    > [bold]Pet type:[/] {self.__pet_type}")
         pet_info.append(f"    > [bold]Status:[/] {self.__status.upper()}")
         pet_info.append(
-            f"    > [bold]Applications:[/] {len(self.__applications)}")
+            f"    > [bold]Applications:[/] {self.__applications}")
 
         return pet_info
 
     def __str__(self) -> str:
-        return f"{self.profile.name}: {self.__pet_type.title()}, {self.__status.upper()}, {len(self.__applications)} applications"
+        return f"{self.profile.name}: {self.__pet_type.title()}, {self.__status.upper()}, {self.__applications} applications"

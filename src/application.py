@@ -42,6 +42,14 @@ class Application(Model):
         Pet.data[pet].add_application()
 
     @property
+    def applicant(self) -> str:
+        return self.__applicant
+
+    @property
+    def pet(self) -> str:
+        return self.__pet
+
+    @property
     def score(self) -> float:
         return self.__score
 

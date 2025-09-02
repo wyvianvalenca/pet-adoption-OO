@@ -5,10 +5,10 @@ from rich.console import Console, Group
 from rich.panel import Panel
 
 from src.post import Post
-from src.ui.header import header
 from src.user import User
 
 from src.ui.clean import clear_screen
+from src.ui.header import header
 
 
 class PostUI:
@@ -73,9 +73,10 @@ class PostUI:
     def show_comments(self) -> None:
         comments: list[Post] = self.post.comments
         self.show_posts(comments, False)
+        return None
 
-    def nothing(self):
-        pass
+    def nothing(self) -> None:
+        return None
 
     def post_actions(self, index: int) -> int:
         actions = {
