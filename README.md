@@ -10,7 +10,7 @@ A system with classes for pets, shelters, and adopters, facilitating pet searche
 - [OK] Educational Resources: Providing resources on pet care and adoption;
 - [OK] Success Stories and Testimonials: Sharing success stories and testimonials from adopters;
 - [OK] Community Forum: A forum for adopters and pet lovers to share experiences and advice.
-- Search and Filter Options: Enabling users to search and filter pets based on various criteria;
+- [OK] Search and Filter Options: Enabling users to search and filter pets based on various criteria;
 - [OK] Adoption Application Processing: Handling and processing adoption applications;
 - [OK] Donation Processing: Facilitating donations to shelters and rescue organizations.
 
