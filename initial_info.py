@@ -10,18 +10,51 @@ from src.shelter import Shelter
 
 
 def create_data():
+    # create users
     a1 = Adopter("wgcv", "Wyvian Valenca")
     a2 = Adopter("ybss", "Ycaro Sales")
 
     s1 = Shelter("csf", "Casa Sao Franscisco")
     s2 = Shelter("rh", "Reptile House")
+    s3 = Shelter("k9s", "K9s")
 
+    # update shelters
     s1.add_allowed_pet_type("dog")
     s2.add_allowed_pet_type("turtle")
+    s3.add_allowed_pet_type("dog")
 
+    s1.profile.birth = date(2010, 10, 10)
+    s2.profile.birth = date(2020, 10, 10)
+    s3.profile.birth = date(2024, 10, 12)
+
+    s1.profile.address = Address(
+        "Rua Maria Sampaio", "Feitosa", "704", 123654, "Maceio", "Alagoas")
+    s2.profile.address = Address(
+        "Av. Fernandes Lima", "Farol", "704", 123654, "Maceio", "Alagoas")
+    s3.profile.address = Address(
+        "Av. Mucio Uchoa Cavalcanti", "Engenho do Meio", "S/N", 50730285,
+        "Recife", "Pernambuco")
+
+    s1.profile.description = "Inspired by the compassion of Saint Francis of Assisi, the patron saint of animals, Casa São Francisco is a sanctuary for abandoned, neglected, and homeless dogs and cats."
+    s2.profile.description = "Reptile House is a specialized rescue dedicated to the welfare of reptiles and exotic animals."
+    s3.profile.description = "K9s is a dynamic, dog-focused rescue with a clear mission: to transform the lives of canines in need."
+
+    # create pets
     p1 = Pet("shiro", s1.username, "dog")
     p2 = Pet("becky", s1.username, "dog")
     p3 = Pet("jack", s2.username, "turtle")
+
+    # update pets' profiles
+    p1.profile.birth = date(2021, 7, 20)
+    p1.profile.breed = "labrador"
+    p1.profile.color = "white"
+
+    p2.profile.birth = date(2017, 10, 10)
+    p2.profile.breed = "chow chow"
+    p2.profile.color = "light brown"
+
+    p3.profile.birth = date(2024, 6, 1)
+    p3.profile.breed = "sea turtle"
 
     p1.add_template_question("How many walks can you take him on daily?",
                              ["0", "1", "2 or more"], "2 or more")
