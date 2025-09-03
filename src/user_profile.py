@@ -14,6 +14,14 @@ class Profile:
         self.__address: Address | None = address
         self.__description: str | None = desc
 
+    def dictionary(self) -> dict[str, int | str | None]:
+        return {
+            "name": self.name,
+            "age": self.age,
+            "city": self.city,
+            "state": self.state
+        }
+
     @property
     def name(self) -> str:
         return self.__name
@@ -31,17 +39,25 @@ class Profile:
             return self.__birth.isoformat()
         return None
 
+    @property
+    def age(self) -> int | None:
+        """returns None if no birth was added to profile"""
+
+        if self.__birth:
+            return relativedelta.relativedelta(date.today(), self.__birth).years
+        return None
+
     @birth.setter
     def birth(self, new_birth: date):
         if isinstance(new_birth, date) and new_birth <= date.today():
             self.__birth = new_birth
 
     @property
-    def address(self) -> str | None:
+    def address(self) -> Address | None:
         """returns None if no address was added to profile"""
 
         if self.__address:
-            return self.__address.__str__()
+            return self.__address
 
         return None
 
@@ -97,9 +113,7 @@ class Profile:
         profile_info: list[str] = [f"\n{self.__name.upper()}"]
 
         if self.__birth:
-            today = date.today()
-            age: int = relativedelta.relativedelta(today, self.__birth).years
-            profile_info.append(f"    > [bold]Age:[/] {age}")
+            profile_info.append(f"    > [bold]Age:[/] {self.age}")
 
         if self.__address:
             profile_info.append(f"    > [bold]Address:[/] {self.__address}")

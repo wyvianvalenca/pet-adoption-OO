@@ -12,9 +12,17 @@ class PetProfile(Profile):
                  description: str | None = None,
                  breed: str | None = None,
                  color: str | None = None):
-        Profile.__init__(self, name, birth, address, description)
+        super().__init__(name, birth, address, description)
         self.__breed: str | None = breed
         self.__color: str | None = color
+
+    def dictionary(self) -> dict[str, int | str | None]:
+        d = Profile.dictionary(self)
+        d.update({
+            "breed": self.__breed,
+            "color": self.__color
+        })
+        return d
 
     @property
     def breed(self) -> str | None:
@@ -31,7 +39,7 @@ class PetProfile(Profile):
     def color(self) -> str | None:
         """returns None if no breed was added to profile"""
 
-        return self.__breed
+        return self.__color
 
     @color.setter
     def color(self, new_color: str):

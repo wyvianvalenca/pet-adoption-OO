@@ -1,3 +1,5 @@
+from typing import Any
+from dateutil import relativedelta
 from datetime import date
 from typing_extensions import override
 
@@ -36,6 +38,17 @@ class Pet(Model):
         self.tutor: Adopter | None = None
 
         self.data[name] = self
+
+    def dictionary(self) -> dict[str, Any]:
+        pet_info: dict[str, Any] = {
+            "pet_type": self.__pet_type,
+            "shelter": self.__shelter,
+            "status": self.__status
+        }
+
+        pet_info.update(self.profile.dictionary())
+
+        return pet_info
 
     @property
     def form(self) -> Form:

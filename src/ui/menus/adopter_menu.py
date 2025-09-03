@@ -1,12 +1,15 @@
 from datetime import date
+from typing import Any
 import questionary
 from rich.console import Console
+from rich.panel import Panel
 
 from src.adopter import Adopter
 
 from src.application import Application
 from src.donation import Donation
 from src.form import Form
+from src.query.query import Query
 from src.shelter import Shelter
 from src.pet import Pet
 
@@ -24,8 +27,12 @@ class AdopterMenu(Menu):
         self.name = "adopter menu"
 
         self.actions.update({
+            "Search Pets": {
+                "func": self.search_pet,
+                "args": []},
+
             "Filter Pets": {
-                "func": self.wip,
+                "func": self.filter_pets,
                 "args": []},
 
             "Apply to Adopt a Pet": {
@@ -62,7 +69,7 @@ class AdopterMenu(Menu):
 
         questionary.press_any_key_to_continue().ask()
 
-    def get_pet_name(self):
+    def get_pet_by_name(self):
         self.console.print()
         name: str = questionary.text("Type the pet's name:",
                                      validate=NameValidator,
@@ -85,7 +92,7 @@ class AdopterMenu(Menu):
         return questions_dict
 
     def apply_adopt(self):
-        pet: Pet | None = self.get_pet_name()
+        pet: Pet | None = self.get_pet_by_name()
 
         if pet is None:
             return
@@ -123,3 +130,34 @@ class AdopterMenu(Menu):
         self.console.print()
         Lister(f"{self.user.name}'s Adoption Applications",
                apps, self.console).detailed_list()
+
+    def filter_pets(self):
+        pets: list[dict[str, Any]] = [pet.dictionary()
+                                      for pet in Pet.data.values()]
+
+        self.console.print(
+            "\nTo filter pets, mark the desired characteristics.\n")
+
+        filtered_names: list[str] = Query(pets).filter_items()
+
+        if len(filtered_names) == 0:
+            self.console.print("Your query had no results.")
+            questionary.press_any_key_to_continue().ask()
+            return
+
+        fitlered_pets: list[Pet] = [Pet.data[name] for name in filtered_names]
+
+        self.console.print(
+            f"\nYour query provided {len(filtered_names)} results:")
+
+        Lister("Filtered Pets", fitlered_pets, self.console).detailed_list()
+        return
+
+    def search_pet(self) -> None:
+        pet: Pet | None = self.get_pet_by_name()
+
+        if pet is None:
+            return None
+
+        pet_string: str = "\n".join(pet.formatted_list())
+        self.console.print(Panel.fit(pet_string, "Found Pet"))

@@ -93,7 +93,8 @@ class PetMenu(Menu):
                 f"{self.user.name} does not shelters {pet_type}")
             return
 
-        new_pet: Pet = Pet(name, self.user.username, pet_type)
+        new_pet: Pet = Pet(name, self.user.username, pet_type,
+                           address=self.user.profile.address)
 
         update: bool = questionary.confirm(
             f"Do you want to update {name}'s profile?").ask()

@@ -7,6 +7,7 @@ from rich.console import Console
 from rich.panel import Panel
 
 from src.address import Address
+from src.pet_profile import PetProfile
 from src.user import User
 from src.user_profile import Profile
 from src.pet import Pet
@@ -136,6 +137,9 @@ class ProfileUpdater():
         return True
 
     def __update_breed(self):
+        if not isinstance(self.profile, PetProfile):
+            return
+
         update: bool = questionary.confirm("Update breed?").ask()
         if not update:
             return False
@@ -148,10 +152,13 @@ class ProfileUpdater():
         if new_breed is None:
             return False
 
-        self.profile.description = new_breed
+        self.profile.breed = new_breed
         return True
 
     def __update_color(self):
+        if not isinstance(self.profile, PetProfile):
+            return
+
         update: bool = questionary.confirm("Update color?").ask()
         if not update:
             return False
@@ -164,7 +171,7 @@ class ProfileUpdater():
         if new_color is None:
             return False
 
-        self.profile.description = new_color
+        self.profile.color = new_color
         return True
 
     def update_profile(self):
@@ -195,12 +202,3 @@ class ProfileUpdater():
 
         self.console.print(Panel.fit("\n".join(self.profile_owner.formatted_list()),
                                      title="Current Profile"))
-
-
-def list_pets() -> Panel:
-    all_pets: list[Pet] = list(Pet.all.values())
-    result: str = ""
-    for pet in all_pets:
-        result = result + "\n".join(pet.formatted_list()) + "\n"
-
-    return Panel(Align.center(result), title="Pets", style="violet")
