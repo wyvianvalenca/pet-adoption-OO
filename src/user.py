@@ -1,10 +1,11 @@
+from abc import ABC
 from typing_extensions import Self, override
 
 from src.model import Model
 from src.user_profile import Profile
 
 
-class User(Model):
+class User(Model, ABC):
     @classmethod
     def username_available(cls, username: str) -> bool:
         if username in cls.data.keys():

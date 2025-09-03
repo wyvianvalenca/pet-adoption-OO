@@ -4,6 +4,8 @@ from typing_extensions import override
 
 from .address import Address
 
+# ENCAPSULATION EXAMPLE
+
 
 class Profile:
     def __init__(self, name: str, birth: date | None = None,

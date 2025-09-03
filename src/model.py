@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
 from typing_extensions import Self
 
+# ABSTRACT CLASS EXAMPLE
+
 
 class Model(ABC):
     def __init_subclass__(cls):
@@ -10,6 +12,8 @@ class Model(ABC):
     @classmethod
     def __contains__(cls, item: str) -> bool:
         return item in cls.data.keys()
+
+    # OVERRIDE FOR POLIMORPHSIM
 
     @abstractmethod
     def formatted_list(self) -> list[str]:

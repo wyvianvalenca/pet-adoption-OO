@@ -25,8 +25,7 @@ class Menu:
 
             "Update Profile":
                 {"func": self.profile_updater.update_profile,
-                 "args": []},
-
+                 "args": []}
         }
 
     def add_submenu(self, name: str, menu: 'Menu', args):

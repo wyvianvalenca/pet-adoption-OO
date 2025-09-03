@@ -78,6 +78,9 @@ class AdopterMenu(Menu):
         if Pet.__contains__(name):
             return Pet.data[name]
 
+        self.console.print("\nPet not found\n")
+        questionary.press_any_key_to_continue().ask()
+
         return None
 
     def make_form(self, form: Form) -> list[dict[str, str | list]]:
@@ -148,7 +151,7 @@ class AdopterMenu(Menu):
         fitlered_pets: list[Pet] = [Pet.data[name] for name in filtered_names]
 
         self.console.print(
-            f"\nYour query provided {len(filtered_names)} results:")
+            f"\nYour query provided {len(filtered_names)} results:\n")
 
         Lister("Filtered Pets", fitlered_pets, self.console).detailed_list()
         return
@@ -159,5 +162,9 @@ class AdopterMenu(Menu):
         if pet is None:
             return None
 
+        self.console.print()
         pet_string: str = "\n".join(pet.formatted_list())
-        self.console.print(Panel.fit(pet_string, "Found Pet"))
+        self.console.print(Panel.fit(pet_string, title="Found Pet"))
+
+        self.console.print()
+        questionary.press_any_key_to_continue().ask()

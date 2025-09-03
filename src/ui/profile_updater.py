@@ -176,7 +176,7 @@ class ProfileUpdater():
 
     def update_profile(self):
         self.console.print(
-            "Let's update this profile! Here's your current info!")
+            "\nLet's update this profile! Here's your current info!\n")
 
         self.console.print(Panel.fit("\n".join(self.profile_owner.formatted_list()),
                                      title="Current Profile"))
@@ -191,6 +191,7 @@ class ProfileUpdater():
                           ["color", self.__update_color, False]])
 
         for item in update:
+            self.console.print()
             item[2] = item[1]()
 
         self.console.print("\nThe following items were updated:")
