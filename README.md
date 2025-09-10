@@ -39,7 +39,8 @@ python main.py
 - [OK] Educational Resources: Providing resources on pet care and adoption;
 - [OK] Success Stories and Testimonials: Sharing success stories and testimonials from adopters;
 - [OK] Community Forum: A forum for adopters and pet lovers to share experiences and advice.
-- [OK] Search and Filter Options: Enabling users to search and filter pets based on various criteria;
+- [BUG] Search and Filter Options: Enabling users to search and filter pets based on various criteria;
+    - Filtering can show results that do not comply with selected criteria
 - [OK] Adoption Application Processing: Handling and processing adoption applications;
 - [OK] Donation Processing: Facilitating donations to shelters and rescue organizations.
 

@@ -71,10 +71,7 @@ class Pet(Model):
         self.__form.add_question(question, options, answer)
         return None
 
-    # def apply_adoption(self, applicant: str, answers: list[str]) -> None:
-    #     new_app: Application = Application(
-    #         applicant, self.profile.name, self.__form, answers)
-    #     self.__applications.append(new_app)
+    # OVERRIDE FOR POLYMORPHISM
 
     @override
     def formatted_list(self) -> list[str]:

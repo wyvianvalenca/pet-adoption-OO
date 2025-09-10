@@ -25,6 +25,8 @@ class Lister:
 
         questionary.press_any_key_to_continue().ask()
 
+    # POLYMORPHISM
+
     def detailed_list(self):
         formatted = ""
         for item in self.items:

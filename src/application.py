@@ -67,6 +67,8 @@ class Application(Model):
     def __str__(self) -> str:
         return f"[bold on purple4]@{self.__applicant}'s application to adopt {self.__pet.title()}[/]"
 
+    # OVERRIDE FOR POLYMORPHISM
+
     def formatted_list(self) -> list[str]:
         application_info: list[str] = [f"{self}", ""]
 
